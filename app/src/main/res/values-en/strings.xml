@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MultiLanguageDemo</string>
+
+    <string name="setting_language_auto">System</string>
+    <string name="setting_language_english">English</string>
+    <string name="setting_simplified_chinese">Simplified Chinese</string>
+    <string name="setting_traditional_chinese">Traditional Chinese</string>
+
+    <string name="language_selection">Language selection</string>
+</resources>
