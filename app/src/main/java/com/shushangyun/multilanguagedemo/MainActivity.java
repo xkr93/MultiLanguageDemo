@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.e("TAG","main = "+MultiLanguageUtil.getInstance().getLanguageType());
-        MultiLanguageUtil.getInstance().setConfiguration();
+        MultiLanguageUtil.getInstance().setConfiguration(this);
         setContentView(R.layout.activity_main);
         tv_select = findViewById(R.id.tv_select);
         tv_select.setOnClickListener(new View.OnClickListener() {

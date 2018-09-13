@@ -1,6 +1,7 @@
 package com.shushangyun.multilanguagedemo;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -46,15 +47,15 @@ public class MultiLanguageUtil {
     /**
      * 设置语言
      */
-    public void setConfiguration() {
+    public void setConfiguration(Activity activity) {//设置语言需要使用Activity，不能用ApplicationContext（8.0以下正常，8.0+切换无效）
         Locale targetLocale = getLanguageLocale();
-        Configuration configuration = mContext.getResources().getConfiguration();
+        Configuration configuration = activity.getResources().getConfiguration();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             configuration.setLocale(targetLocale);
         } else {
             configuration.locale = targetLocale;
         }
-        Resources resources = mContext.getResources();
+        Resources resources = activity.getResources();
         DisplayMetrics dm = resources.getDisplayMetrics();
         resources.updateConfiguration(configuration, dm);//语言更换生效的代码!
     }
@@ -103,9 +104,9 @@ public class MultiLanguageUtil {
      *
      * @param languageType
      */
-    public void updateLanguage(int languageType) {
+    public void updateLanguage(Activity activity,int languageType) {
         PreferenceUtils.putInt(mContext, MultiLanguageUtil.SAVE_LANGUAGE, languageType);
-        MultiLanguageUtil.getInstance().setConfiguration();
+        MultiLanguageUtil.getInstance().setConfiguration(activity);
     }
 
     public String getLanguageName(Context context) {
@@ -140,11 +141,11 @@ public class MultiLanguageUtil {
         return languageType;
     }
 
-    public static Context attachBaseContext(Context context) {
+    public static Context attachBaseContext(Activity context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return createConfigurationResources(context);
         } else {
-            MultiLanguageUtil.getInstance().setConfiguration();
+            MultiLanguageUtil.getInstance().setConfiguration(context);
             return context;
         }
     }
